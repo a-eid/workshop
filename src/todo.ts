@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-type Todo = {
+export type Todo = {
   id: number
   name: string
 }
@@ -11,12 +11,17 @@ const todoSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    addTodo(state, payload: PayloadAction<Todo>) {
-      state.push(payload.payload)
+    addTodo(todos, { payload }: PayloadAction<Todo>) {
+      todos.push(payload)
     },
     removeTodo(state, payload: PayloadAction<number>) {},
+
+    editTodo(todos, { payload }: PayloadAction<Todo>) {
+      const index = todos.findIndex(todo => todo.id === payload.id)
+      todos[index] = payload
+    },
   },
 })
 
-export const { addTodo, removeTodo } = todoSlice.actions
+export const { addTodo, removeTodo, editTodo } = todoSlice.actions
 export default todoSlice.reducer

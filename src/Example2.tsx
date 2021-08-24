@@ -1,7 +1,8 @@
 import * as React from "react"
+import { useDispatch } from "react-redux"
 import { decrement, increment } from "./counter"
 import { useAppDispatch, useAppSelector } from "./store"
-import { addTodo } from "./todo"
+import { addTodo, editTodo, Todo } from "./todo"
 
 export function Example2() {
   const counter = useAppSelector(state => state.counter.value)
@@ -48,13 +49,42 @@ export function Example2() {
           }}
         />
         <button onClick={handleAddTodo}>Add Todo</button>
-
         {todos.map(todo => (
-          <div key={todo.id.toString()}>
-            <h2>{todo.name}</h2>
-          </div>
+          <TodoItem key={todo.id.toString()} todo={todo} />
         ))}
       </div>
+    </div>
+  )
+}
+
+function TodoItem({ todo }: { todo: Todo }) {
+  const [editing, setEditing] = React.useState(false)
+  const [todoName, setTodoName] = React.useState(todo.name)
+  const dispatch = useDispatch()
+
+  function handleSave() {
+    setEditing(false)
+    dispatch(
+      editTodo({
+        name: todoName,
+        id: todo.id,
+      }),
+    )
+  }
+
+  return (
+    <div style={{ display: "flex" }}>
+      {editing ? (
+        <>
+          <input type="text" value={todoName} onChange={e => setTodoName(e.target.value)} />
+          <button onClick={handleSave}>Save</button>
+        </>
+      ) : (
+        <>
+          <h2>{todo.name}</h2>
+          <button onClick={() => setEditing(true)}>Edit</button>
+        </>
+      )}
     </div>
   )
 }
