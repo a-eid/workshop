@@ -8,7 +8,7 @@ export type Todo = {
 const initialState: Todo[] = []
 
 const todoSlice = createSlice({
-  name: "counter",
+  name: "todos",
   initialState,
   reducers: {
     addTodo(todos, { payload }: PayloadAction<Todo>) {
