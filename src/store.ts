@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 
+import counter from "./counter"
+import todos from "./todo"
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    counter,
+    todos,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>

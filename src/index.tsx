@@ -7,13 +7,15 @@ import { ReactQueryDevtools } from "react-query/devtools"
 import { queryClient } from "./const"
 import { store } from "./store"
 
-import { Example1 } from "./Example1"
+// import { Example1 } from "./Example1"
+import { Example2 } from "./Example2"
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <Example1 />
+        {/* <Example1 /> */}
+        <Example2 />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </Provider>
